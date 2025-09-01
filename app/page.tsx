@@ -36,8 +36,7 @@ const Page = () => {
       />
       <Hero />
       <Courses />
-      <YouTubeSection />
-      <MaterialsSection />
+     
       <Reviews />
       <FAQ />
       <Footer />
