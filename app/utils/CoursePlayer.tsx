@@ -18,7 +18,7 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
     //     videoId: videoUrl,
     //   })
     axios
-      .post("http://localhost:8000/api/v1/getVdoCipherOTP", {
+      .post("https://ilearnit-server.onrender.com/api/v1/getVdoCipherOTP", {
         videoId: videoUrl,
       })
       .then((res) => {
