@@ -7,8 +7,12 @@ export const navItemsData = [
     url: "/",
   },
   {
-    name: "Courses",
+    name: "Tutorials", // Regular courses
     url: "/courses",
+  },
+  {
+    name: "Courses ", // New separate item for adaptive courses
+    url: "/adaptive-courses",
   },
   {
     name: "About",
