@@ -1,5 +1,7 @@
+// utils/NavItems.tsx
 import Link from "next/link";
 import React from "react";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 export const navItemsData = [
   {
@@ -7,12 +9,14 @@ export const navItemsData = [
     url: "/",
   },
   {
-    name: "Tutorials", // Regular courses
+    name: "Tutorials",
     url: "/courses",
+    protected: true, // Add this flag
   },
   {
-    name: "Courses ", // New separate item for adaptive courses
+    name: "Courses",
     url: "/adaptive-courses",
+    protected: true, // Add this flag
   },
   {
     name: "About",
@@ -31,16 +35,40 @@ export const navItemsData = [
 type Props = {
   activeItem: number;
   isMobile: boolean;
-  closeSidebar?: () => void; // optional prop to close sidebar on mobile
+  closeSidebar?: () => void;
+  setOpen?: (open: boolean) => void;
+  setRoute?: (route: string) => void;
 };
 
-const NavItems: React.FC<Props> = ({ activeItem, isMobile, closeSidebar }) => {
+const NavItems: React.FC<Props> = ({ 
+  activeItem, 
+  isMobile, 
+  closeSidebar, 
+  setOpen, 
+  setRoute 
+}) => {
+  const { data: userData } = useLoadUserQuery(undefined, {});
+
+  const handleProtectedClick = (e: React.MouseEvent, isProtected: boolean) => {
+    if (isProtected && !userData) {
+      e.preventDefault();
+      if (setOpen && setRoute) {
+        setOpen(true);
+        setRoute("Login");
+      }
+    }
+  };
+
   return (
     <>
       {/* Desktop Nav */}
       <div className="hidden 800px:flex">
         {navItemsData.map((item, index) => (
-          <Link href={item.url} key={index}>
+          <Link 
+            href={item.url} 
+            key={index}
+            onClick={(e) => item.protected && handleProtectedClick(e, item.protected)}
+          >
             <span
               className={`${
                 activeItem === index
@@ -66,9 +94,21 @@ const NavItems: React.FC<Props> = ({ activeItem, isMobile, closeSidebar }) => {
           </div>
 
           {navItemsData.map((item, index) => (
-            <Link href={item.url} key={index}>
+            <Link 
+              href={item.url} 
+              key={index}
+              onClick={(e) => {
+                if (item.protected && !userData) {
+                  e.preventDefault();
+                  if (setOpen && setRoute) {
+                    setOpen(true);
+                    setRoute("Login");
+                  }
+                }
+                closeSidebar && closeSidebar();
+              }}
+            >
               <span
-                onClick={closeSidebar} // closes sidebar on click
                 className={`${
                   activeItem === index
                     ? "dark:text-[#37a39a] text-[crimson]"

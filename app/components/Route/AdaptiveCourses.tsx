@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import Image from 'next/image';
-
+import ProtectedRoute from "../../components/ProtectedRoute";
 
 // Types
 interface Lesson {
@@ -172,6 +172,7 @@ const AIRecommendationEngine = ({ courses, userProfile, onRecommendationSelect }
   }, [courses, userProfile]);
   
   return (
+    <ProtectedRoute>
     <div className="bg-white dark:bg-gray-800 rounded-2xl mt-3 shadow-lg p-6 mb-8">
       <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">AI-Powered Recommendations</h2>
       
@@ -245,6 +246,7 @@ const AIRecommendationEngine = ({ courses, userProfile, onRecommendationSelect }
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 };
 

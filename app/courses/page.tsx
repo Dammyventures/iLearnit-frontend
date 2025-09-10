@@ -10,6 +10,7 @@ import { styles } from "../styles/style";
 import CourseCard from "../components/Course/CourseCard";
 import Footer from "../components/Footer";
 import YouTubeSection from "../components/YouTube/YouTubeSection";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 interface ICourse {
   _id: string;
@@ -32,6 +33,7 @@ interface ICategory {
 }
 
 const Page = () => {
+
   const searchParams = useSearchParams();
   const search = searchParams?.get("title") || "";
   const { data, isLoading, error } = useGetUsersAllCoursesQuery(undefined, {});
@@ -115,6 +117,7 @@ const Page = () => {
   }
 
   return (
+    <ProtectedRoute>
     <div>
       <Header
         route={route}
@@ -216,6 +219,7 @@ const Page = () => {
       <YouTubeSection />
       <Footer />
     </div>
+    </ProtectedRoute>
   );
 };
 
