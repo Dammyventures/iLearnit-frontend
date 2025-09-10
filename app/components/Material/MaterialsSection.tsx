@@ -9,7 +9,7 @@ const MaterialsSection = () => {
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/materials");
+        const res = await axios.get("https://ilearnit-server.onrender.com/api/materials");
         setMaterials(res.data.materials);
       } catch (err) {
         console.error("Error fetching materials:", err);

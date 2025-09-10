@@ -45,7 +45,7 @@ const MaterialViewer: React.FC<Props> = ({ materials }) => {
 
   const renderContent = (mat: Material) => {
     const actualType = getFileType(mat.url, mat.type);
-    const fullUrl = `http://localhost:8000${mat.url}`;
+    const fullUrl = `"https://ilearnit-server.onrender.com/"${mat.url}`;
 
     if (errors[mat.url]) {
       return (
@@ -160,7 +160,7 @@ const MaterialViewer: React.FC<Props> = ({ materials }) => {
             <div className="mt-3 text-sm text-gray-500">
               Type: {mat.type.toUpperCase()} • 
               <a
-                href={`http://localhost:8000${mat.url}`}
+                href={`https://ilearnit-server.onrender.com/${mat.url}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-2 text-blue-600 hover:underline"

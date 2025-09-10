@@ -10,7 +10,7 @@ const MaterialUpload = () => {
 
   const fetchMaterials = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/materials");
+      const res = await axios.get("https://ilearnit-server.onrender.com/api/materials");
       setMaterials(res.data.materials);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -28,7 +28,7 @@ const MaterialUpload = () => {
     formData.append("file", file);
 
     try {
-      const res = await axios.post("http://localhost:8000/api/materials", formData, {
+      const res = await axios.post("https://ilearnit-server.onrender.com/api/materials", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (res.data.success) {
@@ -67,7 +67,7 @@ const MaterialUpload = () => {
       <ul className="list-disc ml-4">
         {materials.map((mat) => (
           <li key={mat.url}>
-            <a href={`http://localhost:8000${mat.url}`} target="_blank" rel="noreferrer">
+            <a href={`https://ilearnit-server.onrender.com/${mat.url}`} target="_blank" rel="noreferrer">
               {mat.title} ({mat.type})
             </a>
           </li>
