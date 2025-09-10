@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import Image from 'next/image';
+
 
 // Types
 interface Lesson {
@@ -336,117 +338,138 @@ const UserProfileSetup = ({ onProfileComplete }: {
           </div>
 
           {/* Step content */}
-          {step === 1 && (
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">What's your preferred learning style?</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {learningStyles.map(style => (
-                  <div 
-                    key={style.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                      profile.learningStyle === style.id 
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
-                        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
-                    }`}
-                    onClick={() => setProfile({...profile, learningStyle: style.id as any})}
-                  >
-                    <h4 className="font-medium text-gray-800 dark:text-white">{style.name}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{style.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+        {/* Step content */}
+{step === 1 && (
+  <div>
+    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      What&apos;s your preferred learning style?
+    </h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {learningStyles.map((style) => (
+        <div
+          key={style.id}
+          className={`border rounded-lg p-4 cursor-pointer transition-all ${
+            profile.learningStyle === style.id
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
+          }`}
+          onClick={() => setProfile({ ...profile, learningStyle: style.id as any })}
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => { if (e.key === 'Enter') setProfile({ ...profile, learningStyle: style.id as any }) }}
+        >
+          <h4 className="font-medium text-gray-800 dark:text-white">{style.name}</h4>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{style.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
-          {step === 2 && (
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">What's your current proficiency level?</h3>
-              <div className="space-y-4">
-                {proficiencyLevels.map(level => (
-                  <div 
-                    key={level.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                      profile.proficiencyLevel === level.id 
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
-                        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
-                    }`}
-                    onClick={() => setProfile({...profile, proficiencyLevel: level.id as any})}
-                  >
-                    <h4 className="font-medium text-gray-800 dark:text-white">{level.name}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{level.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+{step === 2 && (
+  <div>
+    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      What&apos;s your current proficiency level?
+    </h3>
+    <div className="space-y-4">
+      {proficiencyLevels.map((level) => (
+        <div
+          key={level.id}
+          className={`border rounded-lg p-4 cursor-pointer transition-all ${
+            profile.proficiencyLevel === level.id
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
+          }`}
+          onClick={() => setProfile({ ...profile, proficiencyLevel: level.id as any })}
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => { if (e.key === 'Enter') setProfile({ ...profile, proficiencyLevel: level.id as any }) }}
+        >
+          <h4 className="font-medium text-gray-800 dark:text-white">{level.name}</h4>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{level.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
-          {step === 3 && (
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">What are you interested in learning?</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">Select all that apply</p>
-              <div className="flex flex-wrap gap-3">
-                {interestsList.map(interest => (
-                  <button
-                    key={interest}
-                    type="button"
-                    onClick={() => handleInterestToggle(interest)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      profile.interests.includes(interest)
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    {interest}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+{step === 3 && (
+  <div>
+    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      What are you interested in learning?
+    </h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-4">Select all that apply</p>
+    <div className="flex flex-wrap gap-3">
+      {interestsList.map((interest) => (
+        <button
+          key={interest}
+          type="button"
+          onClick={() => handleInterestToggle(interest)}
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+            profile.interests.includes(interest)
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+          }`}
+        >
+          {interest}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
 
-          {step === 4 && (
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">What are your learning goals?</h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">Select all that apply</p>
-              <div className="flex flex-wrap gap-3">
-                {goalsList.map(goal => (
-                  <button
-                    key={goal}
-                    type="button"
-                    onClick={() => handleGoalToggle(goal)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      profile.goals.includes(goal)
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    {goal}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+{step === 4 && (
+  <div>
+    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      What are your learning goals?
+    </h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-4">Select all that apply</p>
+    <div className="flex flex-wrap gap-3">
+      {goalsList.map((goal) => (
+        <button
+          key={goal}
+          type="button"
+          onClick={() => handleGoalToggle(goal)}
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+            profile.goals.includes(goal)
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+          }`}
+        >
+          {goal}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
 
-          {step === 5 && (
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">What's your preferred learning pace?</h3>
-              <div className="space-y-4">
-                {paces.map(pace => (
-                  <div 
-                    key={pace.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                      profile.preferredPace === pace.id 
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
-                        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
-                    }`}
-                    onClick={() => setProfile({...profile, preferredPace: pace.id as any})}
-                  >
-                    <h4 className="font-medium text-gray-800 dark:text-white">{pace.name}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{pace.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+{step === 5 && (
+  <div>
+    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      What&apos;s your preferred learning pace?
+    </h3>
+    <div className="space-y-4">
+      {paces.map((pace) => (
+        <div
+          key={pace.id}
+          className={`border rounded-lg p-4 cursor-pointer transition-all ${
+            profile.preferredPace === pace.id
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
+          }`}
+          onClick={() => setProfile({ ...profile, preferredPace: pace.id as any })}
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => { if (e.key === 'Enter') setProfile({ ...profile, preferredPace: pace.id as any }) }}
+        >
+          <h4 className="font-medium text-gray-800 dark:text-white">{pace.name}</h4>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{pace.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
 
           {/* Navigation buttons */}
           <div className="flex justify-between mt-8">
@@ -1452,8 +1475,9 @@ useEffect(() => {
                       ></div>
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
-                      Keep learning! You're doing great.
-                    </div>
+  Keep learning! You&apos;re doing great.
+</div>
+
                   </div>
                 </div>
               </div>
@@ -1475,11 +1499,14 @@ useEffect(() => {
               {filteredCourses.map(course => (
                 <div key={course.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   <div className="relative">
-                    <img 
-                      src={course.thumbnail} 
-                      alt={course.title}
-                      className="w-full h-48 object-cover"
-                    />
+                   <Image 
+  src={course.thumbnail} 
+  alt={course.title} 
+  width={400} 
+  height={192} 
+  className="w-full h-48 object-cover"
+/>
+
                     <div className="absolute top-3 right-3">
                       <span className={`inline-block w-6 h-6 rounded-full ${getBadgeColor(course)} shadow-md`}></span>
                     </div>

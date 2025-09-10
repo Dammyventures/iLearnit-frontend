@@ -1,3 +1,4 @@
+'use client';
 import { Course, Recommendation, ILesson } from '@/types/cours';
 
 interface RecommendationsProps {
@@ -8,10 +9,11 @@ interface RecommendationsProps {
 
 const Recommendations = ({ recommendations, course, onLessonSelect }: RecommendationsProps) => {
   const findLessonById = (lessonId: string): ILesson | null => {
-    for (const module of course.modules) {
-      const lesson = module.lessons.find((l) => l._id === lessonId);
-      if (lesson) return lesson;
-    }
+   for (const mod of course.modules) {
+  const lesson = mod.lessons.find((l) => l._id === lessonId);
+  if (lesson) return lesson;
+}
+
     return null;
   };
 
@@ -43,6 +45,9 @@ const Recommendations = ({ recommendations, course, onLessonSelect }: Recommenda
               key={rec.lessonId}
               className="p-4 border rounded-lg mb-4 cursor-pointer hover:bg-blue-50 transition-colors"
               onClick={() => onLessonSelect(rec.lessonId)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter') onLessonSelect(rec.lessonId) }}
             >
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-semibold">{lesson.title}</h3>

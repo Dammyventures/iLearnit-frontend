@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { Course } from '@/types/cours';
 
@@ -10,11 +11,12 @@ interface LessonViewerProps {
 
 const LessonViewer = ({ lessonId, course, onComplete, onClose }: LessonViewerProps) => {
   const findLessonById = (id: string) => {
-    for (const module of course.modules) {
-      for (const lesson of module.lessons) {
-        if (lesson._id === id) return lesson;
-      }
-    }
+   for (const mod of course.modules) {
+  for (const lesson of mod.lessons) {
+    if (lesson._id === id) return lesson;
+  }
+}
+
     return null;
   };
 
